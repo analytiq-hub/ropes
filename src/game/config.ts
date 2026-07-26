@@ -5,7 +5,7 @@ export const CONFIG = {
 
   // Ground & jump
   moveSpeed: 300,
-  jumpVelocity: -540,
+  jumpVelocity: -680,
   gravity: 1650,
   maxFallSpeed: 950,
 

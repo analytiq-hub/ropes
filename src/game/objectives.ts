@@ -179,21 +179,33 @@ export function drawObjectives(
   ctx.textAlign = 'left'
 }
 
+export function formatTime(seconds: number): string {
+  const clamped = Math.max(0, seconds)
+  const mins = Math.floor(clamped / 60)
+  const secs = clamped - mins * 60
+  if (mins > 0) {
+    return `${mins}:${secs.toFixed(2).padStart(5, '0')}`
+  }
+  return `${secs.toFixed(2)}s`
+}
+
 export function drawObjectiveHud(
   ctx: CanvasRenderingContext2D,
   objectives: ObjectiveState,
   worldWidth: number,
+  elapsedSeconds: number,
 ): void {
   const total = objectives.collectibles.length
   const got = collectedCount(objectives)
   const lines = [
+    `Time: ${formatTime(elapsedSeconds)}`,
     `Kits: ${got}/${total}`,
     `Rescue: ${objectives.rescue.rescued ? 'Done' : 'Pending'}`,
     `Exit: ${objectives.exit.open ? 'Open' : 'Locked'}`,
   ]
 
   const width = 168
-  const height = 64
+  const height = 80
   const x = worldWidth - width - 10
   const y = 10
 
@@ -212,6 +224,7 @@ export function drawWinOverlay(
   ctx: CanvasRenderingContext2D,
   worldWidth: number,
   worldHeight: number,
+  elapsedSeconds: number,
 ): void {
   ctx.save()
   ctx.fillStyle = 'rgba(6, 10, 22, 0.62)'
@@ -220,16 +233,20 @@ export function drawWinOverlay(
   ctx.fillStyle = '#e8eefc'
   ctx.font = 'bold 36px Segoe UI, system-ui, sans-serif'
   ctx.textAlign = 'center'
-  ctx.fillText('Rescued!', worldWidth / 2, worldHeight / 2 - 12)
+  ctx.fillText('Rescued!', worldWidth / 2, worldHeight / 2 - 24)
+
+  ctx.fillStyle = '#5ec8ff'
+  ctx.font = 'bold 22px ui-monospace, Consolas, monospace'
+  ctx.fillText(`Time ${formatTime(elapsedSeconds)}`, worldWidth / 2, worldHeight / 2 + 10)
 
   ctx.fillStyle = '#9aa8c7'
   ctx.font = '16px Segoe UI, system-ui, sans-serif'
   ctx.fillText(
     'Kits collected · Survivor saved · Exit reached',
     worldWidth / 2,
-    worldHeight / 2 + 22,
+    worldHeight / 2 + 42,
   )
-  ctx.fillText('Press R or Restart to play again', worldWidth / 2, worldHeight / 2 + 48)
+  ctx.fillText('Press R or Restart to play again', worldWidth / 2, worldHeight / 2 + 68)
   ctx.textAlign = 'left'
   ctx.restore()
 }

@@ -253,10 +253,10 @@ export class Game {
     drawRope(ctx, this.player, this.rope)
     drawPlayer(ctx, this.player)
     drawDebugHud(ctx, this.player, this.rope)
-    drawObjectiveHud(ctx, this.objectives, WORLD_WIDTH)
+    drawObjectiveHud(ctx, this.objectives, WORLD_WIDTH, this.elapsed)
 
     if (this.objectives.won) {
-      drawWinOverlay(ctx, WORLD_WIDTH, WORLD_HEIGHT)
+      drawWinOverlay(ctx, WORLD_WIDTH, WORLD_HEIGHT, this.elapsed)
     }
   }
 }
