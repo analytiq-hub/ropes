@@ -4,10 +4,22 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ropes</title>
+    <title>Rope Rescue</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <header class="hud">
+        <h1>Rope Rescue</h1>
+        <p class="instructions">
+          Move with <kbd>A</kbd>/<kbd>D</kbd> or arrows · Jump with
+          <kbd>Space</kbd> · Restart with <kbd>R</kbd>
+        </p>
+        <button id="restart" type="button">Restart</button>
+      </header>
+      <div class="canvas-wrap">
+        <canvas id="game" width="960" height="540" aria-label="Rope Rescue game"></canvas>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
